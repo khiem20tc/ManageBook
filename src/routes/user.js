@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { UserEntity } = require('../models');
-const { upload } = require('../middlewares');
+const { uploadAvatar } = require('../middlewares');
 const { generateToken, verifyToken, hashPassword, comparePassword } = require('../utils')
 
 router.all('/', function(req, res, next) {
@@ -11,7 +11,7 @@ router.all('/', function(req, res, next) {
     next()
   });
 
-router.put('/setAvatar/:id', upload.single('csv'), async(req,res) => {
+router.put('/setAvatar/:id', uploadAvatar.single('csv'), async(req,res) => {
     try {
         const userUpdated = await UserEntity.updateOne(
             {_id: req.params.id}, 

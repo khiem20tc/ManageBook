@@ -1,7 +1,9 @@
 const { checkAuth } = require('./checkAuth')
-const { upload } = require('./uploadMulter')
+const { uploadAvatar } = require('./uploadAvatar')
+const { uploadBook } = require('./uploadBook')
 
 module.exports = {
     checkAuth,
-    upload
+    uploadAvatar,
+    uploadBook
 }

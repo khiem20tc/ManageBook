@@ -6,6 +6,7 @@ const { PORT } = require('./environments')
 const { mongoose } = require('./helpers')
 
 const UserRoute = require('./routes/user')
+const BookRoute = require('./routes/book')
 
 // connected mongo database
 mongoose.connection.on('error', () => {
@@ -20,5 +21,6 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/user', UserRoute);
+app.use('/book', BookRoute);
 
 app.listen(PORT, () => {console.log(`Server is running on ${PORT}...`)});
