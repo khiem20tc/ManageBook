@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { BookEntity } = require('../models');
 const { uploadBook } = require('../middlewares');
+const { checkAuth } = require('../middlewares');
 
 router.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -10,7 +11,7 @@ router.all('/', function(req, res, next) {
     next()
   });
 
-router.post('/', uploadBook.single('book'), async(req,res) => {
+router.post('/', (req, res, next) => checkAuth(req, res, next, 'teacher'), uploadBook.single('book'), async(req,res) => {
   try {
     const book = new BookEntity({
     book: req.file
@@ -31,7 +32,7 @@ router.get('/', async(req,res) => {
 }
 })
 
-router.put('/:id', async(req,res)=>{
+router.put('/:id', (req, res, next) => checkAuth(req, res, next, 'teacher'), async(req,res)=>{
   try {
       const BookUpdated = await BookEntity.updateOne(
           {_id: req.params.id}, 
@@ -47,7 +48,7 @@ router.put('/:id', async(req,res)=>{
   }
 })
 
-router.delete('/:id', async(req,res)=>{
+router.delete('/:id', (req, res, next) => checkAuth(req, res, next, 'teacher'), async(req,res)=>{
   try {
       const bookRemoved = await BookEntity.remove({_id: req.params.id});
       res.status(200).json({msg: 'deleted'});

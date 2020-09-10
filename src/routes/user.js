@@ -39,7 +39,8 @@ router.post('/signin', async(req,res)=>{
         const hashedPassword = await hashPassword(req.body.password)
         const user = new UserEntity({
             userName: req.body.userName,
-            password: hashedPassword
+            password: hashedPassword,
+            role: req.body.role
         });
         const user_ = await UserEntity.findOne({userName: req.body.userName});
         if (user_ == null) {
@@ -60,7 +61,9 @@ router.post('/login', async(req,res)=>{
     }
     try {
         if (await comparePassword(req.body.password, user.password)){
-            res.status(200).send(`Welcome ${user.userName}`)
+            const token = await generateToken(user);
+            //res.status(200).send(`Welcome ${user.userName}`);
+            res.status(200).json({token: token});
         }
         else {
             res.status(500).send("Password wrong !! Please try again")
@@ -96,6 +99,7 @@ router.put('/:id', async(req,res)=>{
             {_id: req.params.id}, 
             {$set: { 
                 userName: req.body.userName,
+                role: req.body.role,
                 password: hashedPassword}}
             );
         res.status(200).json({msg: 'Updated'});

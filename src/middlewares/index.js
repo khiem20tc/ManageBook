@@ -5,5 +5,5 @@ const { uploadBook } = require('./uploadBook')
 module.exports = {
     checkAuth,
     uploadAvatar,
-    uploadBook
+    uploadBook,
 }
