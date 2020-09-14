@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("../partials/head") %>
+</head>
+<body class="container">
+
+    <main>
+        <div class="jumbotron">
+            <h1>ManageBook System</h1>
+            <p>Welcome to ManageBook System</p>
+            <form action="/user/signin" method="POST">
+            <div>
+                <input type="text" placeholder="userName" name="userName">
+            </div>
+            <div>
+                <input type="password" placeholder="password" name="password">
+            </div>
+            <div>
+                <label>Roles:</label>
+            <div>
+                <input type="radio" value="student" name="role">
+                <label>Student</label>
+            </div>
+            <div>
+                <input type="radio" value="teacher" name="role">
+                <label>Teacher</label>
+            </div>
+            </div>
+            <!-- <div>
+                <label>Roles:</label>
+            </div>
+            <select name='role' multiple='false'>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select> -->
+            <a href="/user/signin"><button>Đăng Ký</button></a>
+        </form>
+        </div>
+    </main>
+
+    <footer>
+        <%- include ("../partials/footer") %>
+    </footer>
+
+</body>
+</html>

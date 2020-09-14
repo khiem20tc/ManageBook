@@ -20,6 +20,19 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname,'public')));
 
+app.set('view engine', 'ejs');
+app.use('/home', async(req, res) => {
+    await res.render('../../frontend/views/pages/home');
+});
+
+app.use('/about', async(req, res) => {
+    await res.render('../../frontend/views/pages/about');
+});
+
+app.get('/user/signin', async(req, res) => {
+    await res.render('../../frontend/views/pages/signinForm');
+});
+
 app.use('/user', UserRoute);
 app.use('/book', BookRoute);
 
