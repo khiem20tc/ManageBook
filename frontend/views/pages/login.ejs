@@ -9,15 +9,15 @@
         <div class="jumbotron">
             <h1>ManageBook System</h1>
             <p>Welcome to ManageBook System</p>
+            <form action="/user/login" method="POST">
             <div>
-                <input type="text" placeholder="userName">
+                <input type="text" placeholder="userName" name="userName">
             </div>
             <div>
-                <input type="text" placeholder="password">
+                <input type="password" placeholder="password" name="password">
             </div>
-            <div>
-                <button type="submit">Đăng Nhập</button>
-            </div>
+            <a href="/user/login"><button>Đăng Nhập</button></a>
+        </form>
         </div>
     </main>
 

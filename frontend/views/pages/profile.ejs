@@ -1,5 +1,3 @@
-<!-- views/pages/index.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,19 +5,12 @@
 </head>
 <body class="container">
 
-    <header>
-        <div id="token"><%=token%></div>
-        <script>
-            const token = document.getElementById("token").innerHTML
-            console.log(token)
-        </script>
-        <%- include ("../partials/header") %>
-    </header>
-
     <main>
+        <%=token%>
         <div class="jumbotron">
             <h1>ManageBook System</h1>
             <p>Welcome to ManageBook System</p>
+            <p><%=user.userName%></p>
         </div>
     </main>
 

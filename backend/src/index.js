@@ -29,9 +29,17 @@ app.use('/about', async(req, res) => {
     await res.render('../../frontend/views/pages/about');
 });
 
-app.get('/user/signin', async(req, res) => {
-    await res.render('../../frontend/views/pages/signinForm');
+app.use('/signin', async(req, res) => {
+    await res.render('../../frontend/views/pages/signin');
 });
+
+app.use('/login', async(req, res) => {
+    await res.render('../../frontend/views/pages/login');
+});
+
+// app.use('/profile', async(req, res) => {
+//     await res.render('../../frontend/views/pages/profile');
+// });
 
 app.use('/user', UserRoute);
 app.use('/book', BookRoute);

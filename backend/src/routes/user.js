@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { UserEntity } = require('../models');
 const { uploadAvatar } = require('../middlewares');
+const { checkAuth } = require('../middlewares');
 const { generateToken, verifyToken, hashPassword, comparePassword } = require('../utils')
 
 router.all('/', function(req, res, next) {
@@ -63,7 +64,9 @@ router.post('/login', async(req,res)=>{
         if (await comparePassword(req.body.password, user.password)){
             const token = await generateToken(user);
             //res.status(200).send(`Welcome ${user.userName}`);
-            res.status(200).json({token: token});
+            //res.status(200).json({token: token});
+            console.log(token);
+            res.render('../../frontend/views/pages/home', {token: token})
         }
         else {
             res.status(500).send("Password wrong !! Please try again")
@@ -73,10 +76,16 @@ router.post('/login', async(req,res)=>{
     }
 })
 
-router.get('/:id', async(req,res)=>{
+router.get('/:id', (req, res, next) => checkAuth(req, res, next, 'teacher'), async(req,res)=>{
     try {
-        const user = await UserEntity.find({_id: req.params.id});
-        res.status(200).json(user);
+        const user = await UserEntity.findOne({_id: req.params.id});
+        console.log('user', user)
+        //res.status(200).json(user);
+        if(user){
+         return res.render('../../frontend/views/pages/profile', {user: user});
+        } else {
+            res.send('Error!')
+        }
     } catch(err) {
         res.json({msg: err});
         res.status(404);
