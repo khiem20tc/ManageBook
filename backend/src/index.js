@@ -37,6 +37,10 @@ app.use('/login', async(req, res) => {
     await res.render('../../frontend/views/pages/login');
 });
 
+// app.use('/homeStudent', async(req, res) => {
+//     await res.render('../../frontend/views/pages/homeStudent');
+// });
+
 // app.use('/profile', async(req, res) => {
 //     await res.render('../../frontend/views/pages/profile');
 // });

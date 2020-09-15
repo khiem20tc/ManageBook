@@ -66,7 +66,9 @@ router.post('/login', async(req,res)=>{
             //res.status(200).send(`Welcome ${user.userName}`);
             //res.status(200).json({token: token});
             console.log(token);
-            res.render('../../frontend/views/pages/home', {token: token})
+            if(user.role=="student")
+            return res.status(200).render('../../frontend/views/pages/homeStudent')
+            else return res.status(200).render('../../frontend/views/pages/homeTeacher')
         }
         else {
             res.status(500).send("Password wrong !! Please try again")
@@ -76,13 +78,13 @@ router.post('/login', async(req,res)=>{
     }
 })
 
-router.get('/:id', (req, res, next) => checkAuth(req, res, next, 'teacher'), async(req,res)=>{
+router.get('/:id', async(req,res)=>{
     try {
         const user = await UserEntity.findOne({_id: req.params.id});
         console.log('user', user)
         //res.status(200).json(user);
         if(user){
-         return res.render('../../frontend/views/pages/profile', {user: user});
+            return res.status(200).render('../../frontend/views/pages/profile', {user: user});
         } else {
             res.send('Error!')
         }

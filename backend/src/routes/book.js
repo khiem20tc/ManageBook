@@ -26,7 +26,8 @@ router.post('/', (req, res, next) => checkAuth(req, res, next, 'teacher'), uploa
 router.get('/', async(req,res) => {
   try {
     const book = await BookEntity.find();
-    res.status(200).json(book);
+    //res.status(200).json(book);
+    res.status(200).render('../../frontend/views/pages/bookView', {book: book});
 } catch(err) {
     res.status(400).json({msg: err});
 }
